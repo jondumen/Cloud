@@ -1,0 +1,26 @@
+
+.bg-custom {
+    background-color:transparent; 
+}
+
+/* Estilos adicionales para el encabezado de Bootstrap */
+/* Asegura que el contenido no se superponga en dispositivos más pequeños */
+.TopBar {
+    margin-top: 40%; 
+}
+
+.navbar-nav{
+   
+   margin-left: 10rem;
+   
+}
+.navbar-nav .nav-item {
+    margin: 0 .5rem; 
+}
+.navbar-nav .nav-item.ml-auto {
+    margin-left: auto; 
+}
+.der{
+    padding-left: .1rem;
+}
+

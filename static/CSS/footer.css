@@ -1,0 +1,28 @@
+/* Estilos para el footer */
+.inf {
+    background-color: #f8f9fa; /* Color de fondo */
+    padding: 5rem; /* Espaciado interno */
+}
+
+/* Estilos para los elementos de lista */
+.subs_inf {
+    display: inline-block; /* Muestra los elementos de lista en línea */
+    margin-right: 2rem; /* Espaciado entre elementos de lista */
+    text-align: center; /* Alinea el texto al centro */
+}
+
+/* Estilos para el texto del párrafo */
+.text-body-secondary {
+    color: #6c757d; /* Color del texto */
+}
+
+/* Estilos para el texto centrado */
+.text-center {
+    text-align: center; /* Centrado horizontal */
+}
+
+/* Estilos para el borde inferior de la lista */
+.border-bottom {
+    border-bottom: .1rem solid #dee2e6; /* Borde inferior gris */
+    padding-bottom: 1.5rem;
+}

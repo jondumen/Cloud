@@ -1,0 +1,155 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
+.playfair-display-header> {
+  font-family: "Playfair Display", serif;
+  font-weight: 700;
+  font-style: normal;
+}
+header{
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+body {
+    background-color: #dad7cd;
+}
+h4{
+    padding-bottom: 2rem;
+}
+.Main{
+    width: 100%;
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    padding-bottom: 40rem;
+
+    .btn {
+        position: absolute;
+        top: 95%;
+        left: 50%;
+        transform: translate(-5rem, 20rem);
+        padding: .6rem 2rem;
+        background-color: rgba(193, 157, 104, .8);
+        color: #fff;
+        border: none;
+        /* Ajusta el valor según el grado de redondez deseado */
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+        background-color: #b8bbbe;
+    }
+
+}
+
+.overlay {
+    position: absolute;
+    top: 38%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 1;
+    width: 100%; /* Asegura que el div overlay ocupe todo el ancho */
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.text {
+    position: absolute;
+    top: 50%;
+    left: 50%; /* Ajusta el 50% del lado izquierdo */
+    transform: translate(-50%, -50%); /* Centra vertical y horizontalmente */
+    color: white;
+    z-index: 1; /* Asegura que el texto esté por encima de la imagen */
+}
+
+.text h1 {
+    font-size: 4rem;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.text p {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+/*Sección Bebidas*/
+.container_m {
+    width: 100%;
+    padding-top: 5rem;
+    height: 45rem;
+
+    .sub_m{
+        text-align: center;
+        padding-bottom: 1rem;
+        font-family: Playfair Display;
+        font-size: 2.5rem;
+        position: relative; 
+    }
+    
+}
+/*Slider Bebidas*/
+.swiper-wrapper{
+    width: 100%;
+    height: 28rem;
+}
+.swiper-container {
+    width: 75%;
+    height: 65%;
+    overflow:visible;
+    margin-left: 10rem;
+    margin-top: 2rem;
+}
+.swiper-slide {
+    width: 8rem; /* Ancho de las diapositivas */
+    box-sizing: border-box;
+}
+
+
+.card {
+    border: 1px solid #ccc;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.card:hover {
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.8); /* Agrega sombra al hacer hover */
+    transform: translateY(-2px); /* Eleva ligeramente la tarjeta */
+}
+
+.card-img-top {
+    width: 100%;
+    height: 17rem;
+    object-fit: cover;
+}
+
+.card-title {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.card-text {
+    font-size: 1rem;
+    color: #555;
+    white-space: normal;      /* Permite saltos de línea según el espacio disponible */
+    word-wrap: break-word;    /* Permite que las palabras largas se ajusten al contenedor */
+    overflow: visible; 
+}
+
+/*Sección Alimentos*/
+.container_b {
+    width: 100%;
+    padding-top: 5rem;
+    height: 45rem;
+
+    .sub_b{
+        text-align: center;
+        padding-bottom: 1rem;
+        font-family: Playfair Display;
+        font-size: 2.5rem;
+        position: relative; 
+    }
+    
+}

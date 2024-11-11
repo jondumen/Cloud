@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'CSS/Style.css' %}" />
+    <link rel="stylesheet" href="{% static 'CSS/footer.css' %}" />
+    <title>Sistema de Administración de Habitaciones de Hotel</title>
+
+    <style>
+        #estado_disponible { color: green; }
+        #estado_no_disponible { color: red; }
+        #estado_fuera_de_servicio { color: black; }            
+    </style>
+</head>
+<body>
+    
+    <header>
+        <h1>Sistema de Administración de Habitaciones de Hotel</h1>
+        <button onclick="cerrarSesion()">Cerrar Sesión</button>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="#habitaciones" id="enlace-habitaciones" onclick="mostrarHabitaciones()">Habitaciones</a></li>
+            <li><a href="#reservas" id="enlace-reservas"  onclick="mostrarReservas()">Reservas</a></li>
+            <li><a href="#clientes " id="enlace-clientes" onclick="mostrarClientes()">Clientes</a></li>
+            <li><a href="#informes" id="enlace-informes" onclick="mostrarInformes()">Informes</a></li>
+        </ul>
+    </nav>
+    <main>
+        <div id="seccion-habitaciones">
+            <section id="habitaciones">
+                <h2>Gestionar Habitaciones</h2>
+                <div id="formulario-habitacion">
+                    <form action="{% url 'guardar_habitacion' %}" method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="tipo">Tipo:</label>
+                            <select id="tipo" name="tipo" onchange="actualizarDescripcionYPrecio()" required>
+                                <option value="individual">Individual</option>
+                                <option value="doble">Doble</option>
+                                <option value="doble_balcon">Doble con Balcón</option>
+                                <option value="triple">Triple</option>
+                                <option value="cuadruple">Cuádruple</option>
+                                <option value="terraza">Con Terraza</option>
+                                <option value="piscina">Con Piscina</option>
+                                <option value="familiar">Familiar</option>
+                                <option value="suite">Suite</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="estado_select">Estado:</label>
+                            <select id="estado_select" name="estado" onchange="habilitarEstado()" required>
+                                <option value="disponible" id="estado_disponible">Disponible</option>
+                                <option value="no_disponible" id="estado_no_disponible">No disponible</option>
+                                <option value="fuera_de_servicio" id="estado_fuera_de_servicio">Fuera de servicio</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="precio">Precio:</label>
+                            <input type="number" step="0.01" id="precio" name="precio" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="descripcion">Descripción:</label>
+                            <textarea id="descripcion" name="descripcion" required></textarea>
+                        </div>
+                        <div class="button-container">
+                        <button type="submit">Guardar</button>
+                        <button type="submit">Buscar</button>
+                        <div>
+                    </form>
+                </div>
+            </section>
+        </div>
+        <div id="seccion-reservas">
+            <section id="reservas">
+                <h2>Gestionar Reservas</h2>
+                <div id="formulario-reserva" >
+                    <form action="{% url 'guardar_reserva' %}" method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="cliente_id">ID Cliente:</label>
+                            <input type="number" id="cliente_id" name="cliente_id" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="habitacion_id">ID Habitación:</label>
+                            <input type="number" id="habitacion_id" name="habitacion_id" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="fecha_entrada">Fecha Entrada:</label>
+                            <input type="date" id="fecha_entrada" name="fecha_entrada" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="fecha_salida">Fecha Salida:</label>
+                            <input type="date" id="fecha_salida" name="fecha_salida" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="estado_pago">Estado Pago:</label>
+                            <input type="text" id="estado_pago" name="estado_pago" required>
+                        </div>
+                        <button type="submit">Guardar</button>
+                    </form>
+                </div>
+            </section>
+        </div>
+        <div id="seccion-clientes">
+            <section id="clientes">
+                <h2>Gestionar Clientes</h2>
+                <div id="formulario-cliente">
+                    <form action="{% url 'guardar_cliente' %}" method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="nombre">Nombre:</label>
+                            <input type="text" id="nombre" name="nombre" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="apellido">Apellido:</label>
+                            <input type="text" id="apellido" name="apellido" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="correo">Correo:</label>
+                            <input type="email" id="correo" name="correo" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="telefono">Teléfono:</label>
+                            <input type="tel" id="telefono" name="telefono" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="pais">País:</label>
+                            <input type="text" id="pais" name="pais" required>
+                        </div>
+                        <button type="submit">Guardar</button>
+                    </form>
+                </div>
+            </section>
+        </div>
+        <div id="seccion-informes">
+            <section id="informes">
+                <h2>Generar Informe General</h2>
+                <div id="formulario-informe">
+                    <form action="{% url 'mostrar_todas_las_tablas' %}" method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="fecha_inicio">Fecha Inicio:</label>
+                            <input type="date" id="fecha_inicio" name="fecha_inicio" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="fecha_fin">Fecha Fin:</label>
+                            <input type="date" id="fecha_fin" name="fecha_fin" required>
+                        </div>
+                        <button type="submit">Generar</button>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </main>
+    <footer class="inf">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3 text-center">
+            <li class="subs_inf"><a href="/main" class="nav-link px-2 text-body-secondary">Pagina Principal</a></li>
+        </ul>
+        <p class="text-center text-body-secondary">© 2024 Company, Inc</p>
+    </footer>
+    
+
+    <script>
+    
+        window.addEventListener('load', function() {
+            // Ocultar los formularios de reservas, clientes e informes
+            document.getElementById('seccion-reservas').style.display = 'none';
+            document.getElementById('seccion-clientes').style.display = 'none';
+            document.getElementById('seccion-informes').style.display = 'none';
+        
+            // Mostrar el formulario de habitaciones
+            document.getElementById('formulario-habitacion').style.display = 'block';
+        });
+
+    function cerrarSesion() {
+        // Redirige al usuario de vuelta a la página de inicio de sesión
+        window.location.href = "{% url 'index' %}";
+    }
+    
+
+    function actualizarDescripcionYPrecio() {
+        const descripciones = {
+            individual: "Para 1 persona, servicios añadidos, 1 cama matrimonial.",
+            doble: "Para 2 personas, servicios añadidos, 2 camas individuales.",
+            doble_balcon: "Para 2 personas, servicios añadidos, 2 camas individuales y con balcón.",
+            triple: "Para 3 personas, servicios añadidos, 3 camas individuales.",
+            cuadruple: "Para 4 personas, servicios añadidos, 4 camas individuales.",
+            terraza: "Para 2 personas, servicios añadidos, 1 cama matrimonial y con terraza.",
+            piscina: "Para 2 personas, servicios añadidos, 1 cama matrimonial y acceso a piscina.",
+            familiar: "Para 4 o más personas, servicios añadidos, camas múltiples, espacio familiar.",
+            suite: "Para 2 personas, servicios premium, 1 cama king size, área de estar, baño de lujo."
+        };
+
+        const precios = {
+            individual: 50.00,
+            doble: 80.00,
+            doble_balcon: 100.00,
+            triple: 120.00,
+            cuadruple: 150.00,
+            terraza: 200.00,
+            piscina: 250.00,
+            familiar: 300.00,
+            suite: 400.00
+        };
+
+        const tipo = document.getElementById("tipo").value;
+        document.getElementById("descripcion").value = descripciones[tipo];
+        document.getElementById("precio").value = precios[tipo];
+    }
+
+     // Función para obtener el parámetro de consulta de la URL
+     function getQueryParam(param) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(param);
+    }
+
+    // Función para mostrar el mensaje si existe
+    function mostrarMensaje() {
+        const mensaje = getQueryParam('mensaje');
+        if (mensaje) {
+            alert(mensaje); // Mostrar el mensaje como una alerta
+        }
+    }
+
+    function mostrarHabitaciones() {
+        // Ocultar las otras secciones
+        document.getElementById('seccion-reservas').style.display = 'none';
+        document.getElementById('seccion-clientes').style.display = 'none';
+        document.getElementById('seccion-informes').style.display = 'none';
+
+        document.getElementById('seccion-habitaciones').style.display = 'block';
+        event.preventDefault();
+    }
+
+    function mostrarReservas() {
+        // Ocultar las otras secciones
+        document.getElementById('seccion-habitaciones').style.display = 'none';
+        document.getElementById('seccion-clientes').style.display = 'none';
+        document.getElementById('seccion-informes').style.display = 'none';
+
+        // Mostrar la sección de reservas
+        document.getElementById('seccion-reservas').style.display = 'block';
+
+        event.preventDefault();
+    }
+    function mostrarClientes() {
+        // Ocultar las otras secciones
+        document.getElementById('seccion-habitaciones').style.display = 'none';
+        document.getElementById('seccion-reservas').style.display = 'none';
+        document.getElementById('seccion-informes').style.display = 'none';
+
+        // Mostrar la sección
+        document.getElementById('seccion-clientes').style.display = 'block';
+        event.preventDefault();
+    }
+    function mostrarInformes() {
+        // Ocultar las otras secciones
+        document.getElementById('seccion-habitaciones').style.display = 'none';
+        document.getElementById('seccion-clientes').style.display = 'none';
+        document.getElementById('seccion-reservas').style.display = 'none';
+
+        // Mostrar la sección
+        document.getElementById('seccion-informes').style.display = 'block';
+        event.preventDefault();
+    }
+    </script>
+</body>
+</html>
